@@ -1,5 +1,4 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import ThemeToggle from '@/Components/ThemeToggle';
 import { User } from '@/types';
 import { Link } from '@inertiajs/react';
 import {
@@ -88,20 +87,8 @@ export default function DesktopSidebar({
                     })}
                 </nav>
 
-                {/* Sidebar Bottom: Theme & User */}
+                {/* Sidebar Bottom: User Profile */}
                 <div className="border-t border-zinc-200 pt-3 dark:border-zinc-800">
-                    <div
-                        className={`flex items-center pb-3 ${
-                            collapsed ? 'justify-center' : 'justify-between px-2'
-                        }`}
-                    >
-                        {!collapsed && (
-                            <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                                Tema
-                            </span>
-                        )}
-                        <ThemeToggle />
-                    </div>
 
                     {collapsed ? (
                         <div className="flex flex-col items-center gap-2 pt-1">

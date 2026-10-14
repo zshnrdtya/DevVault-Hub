@@ -1,5 +1,4 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import ThemeToggle from '@/Components/ThemeToggle';
 import { PageProps } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import {
@@ -44,8 +43,6 @@ public function scopeForUser(Builder $query, int $userId): void
                     </Link>
 
                     <div className="flex items-center gap-3">
-                        <ThemeToggle />
-
                         {auth.user ? (
                             <Link
                                 href={route('dashboard')}

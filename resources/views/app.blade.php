@@ -10,6 +10,17 @@
         @routes
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/Pages/{$page['component']}.tsx"])
+        <script>
+            (function() {
+                const theme = localStorage.getItem('theme') || 'system';
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (theme === 'dark' || (theme === 'system' && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            })();
+        </script>
         @inertiaHead
     </head>
     <body class="font-mono antialiased">

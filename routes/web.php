@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PromptController;
 use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SnippetController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/resources/{resource}/favorite', [ResourceController::class, 'toggleFavorite'])->name('resources.favorite');
 
     Route::resource('categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
+
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

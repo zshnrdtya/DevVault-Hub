@@ -1,5 +1,4 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import ThemeToggle from '@/Components/ThemeToggle';
 import { User } from '@/types';
 import { Link } from '@inertiajs/react';
 import { LogOut, User as UserIcon, X } from 'lucide-react';
@@ -63,13 +62,6 @@ export default function MobileDrawer({
                 </nav>
 
                 <div className="border-t border-zinc-200 pt-3 dark:border-zinc-800">
-                    <div className="flex items-center justify-between pb-3">
-                        <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                            Tema
-                        </span>
-                        <ThemeToggle />
-                    </div>
-
                     <div className="flex items-center justify-between rounded-md border border-zinc-200 p-2 dark:border-zinc-800 dark:bg-zinc-900/40">
                         <div className="min-w-0">
                             <p className="truncate text-xs font-semibold text-zinc-900 dark:text-zinc-100">

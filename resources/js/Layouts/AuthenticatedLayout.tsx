@@ -11,6 +11,7 @@ import {
     PanelLeftOpen,
     Plus,
     Search,
+    Settings,
     TerminalSquare,
 } from 'lucide-react';
 import { PropsWithChildren, ReactNode, useEffect, useState } from 'react';
@@ -88,6 +89,12 @@ export default function AuthenticatedLayout({
             icon: FolderKanban,
             active: route().current('categories.*'),
         },
+        {
+            name: 'Settings',
+            href: route('settings'),
+            icon: Settings,
+            active: route().current('settings*'),
+        },
     ];
 
     const resolvedBreadcrumbs: BreadcrumbItem[] = (() => {
@@ -141,6 +148,11 @@ export default function AuthenticatedLayout({
 
         if (route().current('profile.*')) {
             items.push({ label: 'Profil Pengguna' });
+            return items;
+        }
+
+        if (route().current('settings*')) {
+            items.push({ label: 'Settings' });
             return items;
         }
 
