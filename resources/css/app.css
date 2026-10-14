@@ -1,0 +1,63 @@
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource/space-mono/400.css';
+@import '@fontsource/space-mono/700.css';
+@import 'highlight.js/styles/github.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark Mode Syntax Highlighting overrides for DevVault */
+.dark .hljs {
+    color: #c9d1d9;
+    background: transparent !important;
+}
+.dark .hljs-doctag,
+.dark .hljs-keyword,
+.dark .hljs-meta .hljs-keyword,
+.dark .hljs-template-tag,
+.dark .hljs-template-variable,
+.dark .hljs-type,
+.dark .hljs-variable.language_ {
+    color: #ff7b72;
+}
+.dark .hljs-title,
+.dark .hljs-title.class_,
+.dark .hljs-title.class_.inherited__,
+.dark .hljs-title.function_ {
+    color: #d2a8ff;
+}
+.dark .hljs-attr,
+.dark .hljs-attribute,
+.dark .hljs-literal,
+.dark .hljs-meta,
+.dark .hljs-number,
+.dark .hljs-operator,
+.dark .hljs-variable,
+.dark .hljs-selector-attr,
+.dark .hljs-selector-class,
+.dark .hljs-selector-id {
+    color: #79c0ff;
+}
+.dark .hljs-string,
+.dark .hljs-meta .hljs-string {
+    color: #a5d6ff;
+}
+.dark .hljs-comment,
+.dark .hljs-code,
+.dark .hljs-formula {
+    color: #8b949e;
+    font-style: italic;
+}
+.dark .hljs-name,
+.dark .hljs-quote,
+.dark .hljs-selector-tag,
+.dark .hljs-selector-pseudo {
+    color: #7ee787;
+}
+
+/* Base hljs reset for tactile container */
+.hljs {
+    background: transparent !important;
+    padding: 0 !important;
+}
