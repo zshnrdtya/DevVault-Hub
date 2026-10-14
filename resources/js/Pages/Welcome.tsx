@@ -34,7 +34,7 @@ public function scopeForUser(Builder $query, int $userId): void
 
     return (
         <div className="min-h-screen bg-[#fafafa] font-mono text-zinc-900 antialiased dark:bg-[#0c0d0e] dark:text-zinc-100 flex flex-col justify-between">
-            <Head title="DevVault — Personal Developer Hub" />
+            <Head title="DevVault: Personal Developer Hub" />
 
             {/* Navbar */}
             <header className="sticky top-0 z-20 border-b border-zinc-200 bg-white/90 px-4 backdrop-blur dark:border-zinc-800 dark:bg-[#141619]/90 sm:px-6 lg:px-8">
@@ -223,10 +223,10 @@ public function scopeForUser(Builder $query, int $userId): void
                 <div className="mx-auto max-w-6xl px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-400">
                     <div className="flex items-center gap-2">
                         <span className="font-semibold text-zinc-800 dark:text-zinc-200">DevVault</span>
-                        <span>— Crafted with Laravel 13, React, Inertia & Tailwind CSS</span>
+                        <span>· Personal developer hub & second brain</span>
                     </div>
                     <div>
-                        <span>Mode Antislop: DURING</span>
+                        <span>Dibuat dengan Laravel 13, React, Inertia, dan Tailwind CSS</span>
                     </div>
                 </div>
             </footer>

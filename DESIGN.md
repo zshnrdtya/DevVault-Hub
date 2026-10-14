@@ -1,4 +1,4 @@
-# DESIGN.md — DevVault
+# DESIGN.md: DevVault
 
 > **Direction and Identity Specification**  
 > antislop is a filter, not a beautifier. This document gives DevVault its soul: identity, personality, palette, typography, and mood.  
@@ -19,14 +19,14 @@
 
 - **Theme Mode:** Light & Dark Mode dengan toggle aktif (mengikuti preferensi sistem dan user toggle).
   - *Rationale:* Developer bekerja siang dan malam dalam pencahayaan berbeda. Kode dan prompt harus nyaman dibaca berjam-jam tanpa eyestrain.
-- **Visual Motif:** *Tactile Developer Archive* — perpaduan antara terminal presisi dan arsip dokumen rapi. Flat surface dengan pembatas hairline 1px yang tegas. Bebas dari *glowing orbs*, *excessive blur/glassmorphism*, dan gradien kosmetik tak berdasar.
+- **Visual Motif:** *Tactile Developer Archive*: perpaduan antara terminal presisi dan arsip dokumen rapi. Flat surface dengan pembatas hairline 1px yang tegas. Bebas dari *glowing orbs*, *excessive blur/glassmorphism*, dan gradien kosmetik tak berdasar.
 - **Surface Treatment:** Matte flat surfaces, hairline 1px borders (`#E4E4E7` di light / `#27272A` di dark), elevasi berbasis border bukan soft shadow melayang.
 
 ---
 
 ## 3. Color Palette
 
-> **Antislop Constraint:** Dibatasi ketat pada 2–3 warna inti + 1 aksen fungsional (R-29). Tanpa gradien ungu-biru AI klise (R-01).
+> **Antislop Constraint:** Dibatasi ketat pada 2-3 warna inti + 1 aksen fungsional (R-29). Tanpa gradien ungu-biru AI klise (R-01).
 
 - **Background (Canvas):** `#FAFAFA` (Light) / `#0C0D0E` (Dark)
 - **Surface / Card:** `#FFFFFF` (Light) / `#141619` (Dark)
@@ -34,7 +34,7 @@
 - **Muted Text:** `#52525B` (Light) / `#A1A1AA` (Dark) *(WCAG AA rasio kontras > 4.5:1)*
 - **Border / Divider:** `#E4E4E7` (Light) / `#27272A` (Dark)
 - **Deliberate Accent:** `#0284C7` (Sky 600 - functional engineer blue)
-  - *Accent Function:* Khusus tombol CTA utama (misal: "Simpan Snippet"), indikator aktif/fokus, dan badge status penting. Maksimal 1–2 elemen per layar.
+  - *Accent Function:* Khusus tombol CTA utama (misal: "Simpan Snippet"), indikator aktif/fokus, dan badge status penting. Maksimal 1-2 elemen per layar.
 
 ---
 
@@ -88,6 +88,6 @@ Sesuai preferensi developer (estetika full terminal developer hub):
 - **Aturan Penggunaan Ikon:**
   - Tidak menggunakan emoji mentah (seperti 🚀, 💡, ✅, 🔥) di antarmuka atau komentar kode yang terbawa ke UI.
   - Ikon bersifat utilitarian dan semantik: `Copy`, `Check`, `Bookmark`, `Code`, `Terminal`, `Star`, `Search`, `Plus`, `Folder`, `Tag`, dll.
-  - Ukuran standar ikon UI: `16px` (h-4 w-4) untuk tombol ringkas/badge, `18–20px` (h-5 w-5) untuk navigasi dan tombol utama.
-  - Stroke width: default 1.75–2px agar tajam dan terbaca jelas di layar retina/mobile.
+  - Ukuran standar ikon UI: `16px` (h-4 w-4) untuk tombol ringkas/badge, `18-20px` (h-5 w-5) untuk navigasi dan tombol utama.
+  - Stroke width: default 1.75-2px agar tajam dan terbaca jelas di layar retina/mobile.
 

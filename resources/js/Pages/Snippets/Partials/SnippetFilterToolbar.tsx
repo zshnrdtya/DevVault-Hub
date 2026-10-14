@@ -121,7 +121,7 @@ export default function SnippetFilterToolbar({
                         >
                             <option value="latest">Terbaru</option>
                             <option value="oldest">Terlama</option>
-                            <option value="title_asc">Judul A–Z</option>
+                            <option value="title_asc">Judul A - Z</option>
                             <option value="updated">Terakhir Diubah</option>
                         </select>
                     </div>
