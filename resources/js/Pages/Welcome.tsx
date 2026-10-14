@@ -33,7 +33,7 @@ public function scopeForUser(Builder $query, int $userId): void
     };
 
     return (
-        <div className="min-h-screen bg-[#fafafa] font-sans text-zinc-900 antialiased dark:bg-[#0c0d0e] dark:text-zinc-100 flex flex-col justify-between">
+        <div className="min-h-screen bg-[#fafafa] font-mono text-zinc-900 antialiased dark:bg-[#0c0d0e] dark:text-zinc-100 flex flex-col justify-between">
             <Head title="DevVault — Personal Developer Hub" />
 
             {/* Navbar */}

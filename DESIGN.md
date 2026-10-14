@@ -40,15 +40,14 @@
 
 ## 4. Typography Hierarchy
 
-Sesuai ketentuan **PRD Bagian 12.2**:
-- **Interface Font (Heading & Body):** `Space Grotesk`, ui-sans-serif, system-ui, sans-serif (Fontsource)
-- **Code & Monospace Font:** `Space Mono`, ui-monospace, SFMono-Regular, Menlo, monospace (Fontsource)
+Sesuai preferensi developer (estetika full terminal developer hub):
+- **Universal Interface & Monospace Font:** `Space Mono`, ui-monospace, SFMono-Regular, Menlo, monospace (Fontsource)
 - **Aturan Tipografi:**
-  - `Space Grotesk` untuk semua judul, navigasi, form label, dan tombol (weight: 400, 500, 600, 700). Tidak memakai italic sintetis (gunakan weight 500/600 untuk penekanan).
-  - `Space Mono` untuk seluruh code blocks, badge bahasa pemrograman, placeholder variabel `{{...}}`, statistik numerik, dan URL.
+  - `Space Mono` diterapkan secara konsisten pada seluruh halaman (Heading, Body, Card, Form Input, Navigasi, Badge, hingga Code Blocks).
+  - Bobot huruf: 400 (regular) dan 700 (bold), dengan dukungan italic native untuk meta info.
 - **Type Scale:**
-  - H1 / Page Header: `clamp(1.5rem, 3vw, 2rem)` (font-weight: 600, tracking: tight)
-  - Card Title / H2: `1.125rem` (18px, font-weight: 600)
+  - H1 / Page Header: `clamp(1.5rem, 3vw, 2rem)` (font-weight: 700, tracking: tight)
+  - Card Title / H2: `1.125rem` (18px, font-weight: 700)
   - Body Text: `0.9375rem` (15px) dengan `line-height: 1.6`
   - Code Block Text: `0.8125rem` (13px) hingga `0.875rem` (14px) `Space Mono`
   - Small / Meta / Badge: `0.75rem` (12px)

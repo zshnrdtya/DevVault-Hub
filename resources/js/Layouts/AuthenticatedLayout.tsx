@@ -66,7 +66,7 @@ export default function AuthenticatedLayout({
     ];
 
     return (
-        <div className="min-h-screen bg-[#fafafa] font-sans text-zinc-900 antialiased dark:bg-[#0c0d0e] dark:text-zinc-100">
+        <div className="min-h-screen bg-[#fafafa] font-mono text-zinc-900 antialiased dark:bg-[#0c0d0e] dark:text-zinc-100">
             <DesktopSidebar navItems={navItems} user={user} />
 
             <MobileDrawer
