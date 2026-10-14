@@ -98,8 +98,8 @@ export default function ThemeSetting() {
                             onClick={() => applyTheme(opt.id)}
                             className={`flex min-h-[44px] flex-col justify-between rounded-lg border p-4 text-left transition-all ${
                                 isSelected
-                                    ? 'border-sky-600 bg-sky-50/60 dark:border-sky-500 dark:bg-sky-950/40 ring-1 ring-sky-600 dark:ring-sky-500'
-                                    : 'border-zinc-200 bg-zinc-50 hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-zinc-700'
+                                    ? 'border-sky-600 bg-sky-50/80 text-sky-900 ring-1 ring-sky-600 dark:border-sky-500 dark:bg-sky-950/40 dark:text-sky-100 dark:ring-sky-500'
+                                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-300 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-[#101113] dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-[#181a1d]'
                             }`}
                         >
                             <div className="flex items-center justify-between">
@@ -107,7 +107,7 @@ export default function ThemeSetting() {
                                     className={`flex h-9 w-9 items-center justify-center rounded-md border ${
                                         isSelected
                                             ? 'border-sky-300 bg-white text-sky-700 dark:border-sky-800 dark:bg-zinc-900 dark:text-sky-300'
-                                            : 'border-zinc-200 bg-white text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400'
+                                            : 'border-zinc-200 bg-white text-zinc-600 dark:border-zinc-800 dark:bg-[#181a1d] dark:text-zinc-400'
                                     }`}
                                 >
                                     <Icon className="h-4 w-4" />
