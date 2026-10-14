@@ -51,27 +51,12 @@ export default function Edit({
 
     return (
         <AuthenticatedLayout
-            header={
-                <div className="flex items-center gap-2">
-                    <Link
-                        href={route('snippets.index')}
-                        className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
-                    >
-                        Snippets
-                    </Link>
-                    <span className="text-zinc-400">/</span>
-                    <Link
-                        href={route('snippets.show', snippet.id)}
-                        className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 truncate max-w-xs"
-                    >
-                        {snippet.title}
-                    </Link>
-                    <span className="text-zinc-400">/</span>
-                    <span className="font-semibold text-zinc-900 dark:text-zinc-100">
-                        Edit
-                    </span>
-                </div>
-            }
+            breadcrumbs={[
+                { label: 'Dashboard', href: route('dashboard') },
+                { label: 'Snippets', href: route('snippets.index') },
+                { label: snippet.title, href: route('snippets.show', snippet.id) },
+                { label: 'Edit' },
+            ]}
         >
             <Head title={`Edit ${snippet.title} - DevVault`} />
 

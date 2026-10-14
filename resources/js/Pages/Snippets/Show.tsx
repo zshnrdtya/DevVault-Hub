@@ -72,20 +72,11 @@ export default function Show({ snippet, languages = {} }: ShowProps) {
 
     return (
         <AuthenticatedLayout
-            header={
-                <div className="flex items-center gap-2">
-                    <Link
-                        href={route('snippets.index')}
-                        className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
-                    >
-                        Snippets
-                    </Link>
-                    <span className="text-zinc-400">/</span>
-                    <span className="font-semibold text-zinc-900 dark:text-zinc-100 truncate max-w-sm">
-                        {snippet.title}
-                    </span>
-                </div>
-            }
+            breadcrumbs={[
+                { label: 'Dashboard', href: route('dashboard') },
+                { label: 'Snippets', href: route('snippets.index') },
+                { label: snippet.title },
+            ]}
         >
             <Head title={`${snippet.title} - DevVault Snippet`} />
 

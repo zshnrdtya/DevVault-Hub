@@ -63,13 +63,9 @@ export default function Dashboard({
 
     return (
         <AuthenticatedLayout
-            header={
-                <div className="flex items-center gap-2">
-                    <span className="font-semibold text-zinc-900 dark:text-zinc-100">
-                        Ringkasan Workspace
-                    </span>
-                </div>
-            }
+            breadcrumbs={[
+                { label: 'Dashboard' },
+            ]}
         >
             <Head title="Dashboard - DevVault" />
 

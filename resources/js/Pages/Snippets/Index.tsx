@@ -85,17 +85,10 @@ export default function Index({
 
     return (
         <AuthenticatedLayout
-            header={
-                <div className="flex items-center gap-2">
-                    <Code2 className="h-4 w-4 text-sky-600 dark:text-sky-400" />
-                    <span className="font-semibold text-zinc-900 dark:text-zinc-100">
-                        Code Snippets
-                    </span>
-                    <span className="font-mono text-xs text-zinc-500">
-                        ({snippets.total})
-                    </span>
-                </div>
-            }
+            breadcrumbs={[
+                { label: 'Dashboard', href: route('dashboard') },
+                { label: 'Code Snippets' },
+            ]}
         >
             <Head title="Code Snippets - DevVault" />
 

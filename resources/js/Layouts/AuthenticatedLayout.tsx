@@ -1,4 +1,5 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import Breadcrumbs, { BreadcrumbItem } from '@/Components/Breadcrumbs';
 import { Link, usePage } from '@inertiajs/react';
 import {
     Bookmark,
@@ -6,6 +7,8 @@ import {
     FolderKanban,
     LayoutDashboard,
     Menu,
+    PanelLeftClose,
+    PanelLeftOpen,
     Plus,
     Search,
     TerminalSquare,
@@ -15,12 +18,24 @@ import DesktopSidebar, { NavItem } from './Partials/DesktopSidebar';
 import MobileBottomNav from './Partials/MobileBottomNav';
 import MobileDrawer from './Partials/MobileDrawer';
 
+interface AuthenticatedLayoutProps {
+    header?: ReactNode;
+    breadcrumbs?: BreadcrumbItem[];
+}
+
 export default function AuthenticatedLayout({
     header,
+    breadcrumbs,
     children,
-}: PropsWithChildren<{ header?: ReactNode }>) {
+}: PropsWithChildren<AuthenticatedLayoutProps>) {
     const user = usePage().props.auth.user;
     const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('devvault_sidebar_collapsed') === 'true';
+        }
+        return false;
+    });
 
     useEffect(() => {
         const handleResize = () => {
@@ -31,6 +46,16 @@ export default function AuthenticatedLayout({
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    const toggleSidebar = () => {
+        setSidebarCollapsed((prev) => {
+            const next = !prev;
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('devvault_sidebar_collapsed', String(next));
+            }
+            return next;
+        });
+    };
 
     const navItems: NavItem[] = [
         {
@@ -65,9 +90,70 @@ export default function AuthenticatedLayout({
         },
     ];
 
+    const resolvedBreadcrumbs: BreadcrumbItem[] = (() => {
+        if (breadcrumbs && breadcrumbs.length > 0) {
+            return breadcrumbs;
+        }
+
+        if (route().current('dashboard')) {
+            return [{ label: 'Dashboard' }];
+        }
+
+        const items: BreadcrumbItem[] = [{ label: 'Dashboard', href: route('dashboard') }];
+
+        if (route().current('snippets.create')) {
+            items.push({ label: 'Snippets', href: route('snippets.index') });
+            items.push({ label: 'Snippet Baru' });
+            return items;
+        }
+
+        if (route().current('snippets.edit')) {
+            items.push({ label: 'Snippets', href: route('snippets.index') });
+            items.push({ label: 'Edit' });
+            return items;
+        }
+
+        if (route().current('snippets.show')) {
+            items.push({ label: 'Snippets', href: route('snippets.index') });
+            items.push({ label: 'Detail' });
+            return items;
+        }
+
+        if (route().current('snippets.*')) {
+            items.push({ label: 'Snippets' });
+            return items;
+        }
+
+        if (route().current('prompts.*')) {
+            items.push({ label: 'Prompts' });
+            return items;
+        }
+
+        if (route().current('resources.*')) {
+            items.push({ label: 'Resources' });
+            return items;
+        }
+
+        if (route().current('categories.*')) {
+            items.push({ label: 'Kategori' });
+            return items;
+        }
+
+        if (route().current('profile.*')) {
+            items.push({ label: 'Profil Pengguna' });
+            return items;
+        }
+
+        return items;
+    })();
+
     return (
         <div className="min-h-screen bg-[#fafafa] font-mono text-zinc-900 antialiased dark:bg-[#0c0d0e] dark:text-zinc-100">
-            <DesktopSidebar navItems={navItems} user={user} />
+            <DesktopSidebar
+                navItems={navItems}
+                user={user}
+                collapsed={sidebarCollapsed}
+            />
 
             <MobileDrawer
                 open={mobileDrawerOpen}
@@ -76,9 +162,15 @@ export default function AuthenticatedLayout({
                 user={user}
             />
 
-            <div className="lg:pl-64 flex flex-col min-h-screen">
+            <div
+                className={`flex min-h-screen flex-col transition-all duration-200 ${
+                    sidebarCollapsed ? 'lg:pl-16' : 'lg:pl-64'
+                }`}
+            >
+                {/* Top Header */}
                 <header className="sticky top-0 z-20 flex h-14 items-center justify-between border-b border-zinc-200 bg-white/95 px-4 backdrop-blur dark:border-zinc-800 dark:bg-[#141619]/95 sm:px-6 lg:px-8">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2.5">
+                        {/* Mobile Drawer Trigger (< 1024px) */}
                         <button
                             type="button"
                             onClick={() => setMobileDrawerOpen(true)}
@@ -87,14 +179,30 @@ export default function AuthenticatedLayout({
                         >
                             <Menu className="h-5 w-5" />
                         </button>
+
                         <div className="lg:hidden">
                             <ApplicationLogo />
                         </div>
-                        {header && (
-                            <div className="hidden lg:block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                                {header}
-                            </div>
-                        )}
+
+                        {/* Desktop Sidebar Minimize / Expand Toggle (>= 1024px) */}
+                        <button
+                            type="button"
+                            onClick={toggleSidebar}
+                            className="hidden lg:inline-flex min-h-[36px] min-w-[36px] items-center justify-center rounded-md text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100 transition-colors"
+                            title={sidebarCollapsed ? 'Perluas Sidebar' : 'Ciutkan Sidebar'}
+                            aria-label={sidebarCollapsed ? 'Perluas Sidebar' : 'Ciutkan Sidebar'}
+                        >
+                            {sidebarCollapsed ? (
+                                <PanelLeftOpen className="h-4 w-4" />
+                            ) : (
+                                <PanelLeftClose className="h-4 w-4" />
+                            )}
+                        </button>
+
+                        {/* Breadcrumbs Trail */}
+                        <div className="hidden sm:block">
+                            <Breadcrumbs items={resolvedBreadcrumbs} />
+                        </div>
                     </div>
 
                     <div className="flex items-center gap-2.5">
@@ -116,11 +224,10 @@ export default function AuthenticatedLayout({
                     </div>
                 </header>
 
-                {header && (
-                    <div className="border-b border-zinc-200 bg-white px-4 py-3 dark:border-zinc-800 dark:bg-[#141619] lg:hidden">
-                        {header}
-                    </div>
-                )}
+                {/* Mobile Breadcrumb Subheader */}
+                <div className="border-b border-zinc-200 bg-white px-4 py-2.5 dark:border-zinc-800 dark:bg-[#141619] sm:hidden">
+                    <Breadcrumbs items={resolvedBreadcrumbs} />
+                </div>
 
                 <main className="flex-1 pb-20 lg:pb-10">
                     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">

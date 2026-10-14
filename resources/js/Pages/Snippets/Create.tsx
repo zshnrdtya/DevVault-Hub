@@ -32,20 +32,11 @@ export default function Create({
 
     return (
         <AuthenticatedLayout
-            header={
-                <div className="flex items-center gap-2">
-                    <Link
-                        href={route('snippets.index')}
-                        className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
-                    >
-                        Snippets
-                    </Link>
-                    <span className="text-zinc-400">/</span>
-                    <span className="font-semibold text-zinc-900 dark:text-zinc-100">
-                        Buat Snippet Baru
-                    </span>
-                </div>
-            }
+            breadcrumbs={[
+                { label: 'Dashboard', href: route('dashboard') },
+                { label: 'Snippets', href: route('snippets.index') },
+                { label: 'Snippet Baru' },
+            ]}
         >
             <Head title="Buat Snippet Baru - DevVault" />
 
