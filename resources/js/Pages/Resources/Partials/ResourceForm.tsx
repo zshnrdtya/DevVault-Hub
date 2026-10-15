@@ -1,3 +1,4 @@
+import AiGenerateButton from '@/Components/AiGenerateButton';
 import TagInput from '@/Components/TagInput';
 import { Link } from '@inertiajs/react';
 import { ArrowLeft, Bookmark, ExternalLink } from 'lucide-react';
@@ -47,12 +48,28 @@ export default function ResourceForm({
                 <div className="space-y-5 lg:col-span-2">
                     {/* URL Input */}
                     <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-[#141619] sm:p-5">
-                        <label
-                            htmlFor="url"
-                            className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300"
-                        >
-                            URL Tautan <span className="text-rose-500">*</span>
-                        </label>
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                            <label
+                                htmlFor="url"
+                                className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300"
+                            >
+                                URL Tautan <span className="text-rose-500">*</span>
+                            </label>
+                            <AiGenerateButton
+                                type="resource"
+                                content={data.url}
+                                onSuccess={(result) => {
+                                    if (result.title) setData('title', result.title);
+                                    if (result.category_id) setData('category_id', result.category_id);
+                                    if (result.note) setData('note', result.note);
+                                    if (result.tags && result.tags.length > 0) {
+                                        const merged = Array.from(new Set([...data.tags, ...result.tags]));
+                                        setData('tags', merged);
+                                    }
+                                }}
+                                buttonLabel="Auto-Deteksi AI (Gemini)"
+                            />
+                        </div>
                         <div className="relative mt-1.5">
                             <input
                                 id="url"

@@ -1,3 +1,4 @@
+import AiGenerateButton from '@/Components/AiGenerateButton';
 import { Link } from '@inertiajs/react';
 import { ArrowLeft, Sparkles } from 'lucide-react';
 import { FormEvent } from 'react';
@@ -73,16 +74,32 @@ export default function PromptForm({
 
                     {/* Prompt Content */}
                     <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-[#141619] sm:p-5">
-                        <div className="flex items-center justify-between">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
                             <label
                                 htmlFor="content"
                                 className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300"
                             >
                                 Isi Prompt AI <span className="text-rose-500">*</span>
                             </label>
-                            <span className="font-mono text-[11px] text-zinc-400">
-                                {data.content.length} karakter
-                            </span>
+                            <div className="flex items-center gap-3">
+                                <AiGenerateButton
+                                    type="prompt"
+                                    content={data.content}
+                                    onSuccess={(result) => {
+                                        if (result.title) setData('title', result.title);
+                                        if (result.category_id) setData('category_id', result.category_id);
+                                        if (result.description) setData('description', result.description);
+                                        if (result.tags && result.tags.length > 0) {
+                                            const merged = Array.from(new Set([...data.tags, ...result.tags]));
+                                            setData('tags', merged);
+                                        }
+                                    }}
+                                    buttonLabel="Auto-Deteksi AI (Gemini)"
+                                />
+                                <span className="font-mono text-[11px] text-zinc-400">
+                                    {data.content.length} karakter
+                                </span>
+                            </div>
                         </div>
 
                         <div className="mt-1.5 overflow-hidden rounded-md border border-zinc-300 dark:border-zinc-700 focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500">
