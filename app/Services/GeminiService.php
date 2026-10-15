@@ -166,50 +166,69 @@ PROMPT;
             throw new RuntimeException('Kunci API Gemini (GEMINI_API_KEY) belum dikonfigurasi di file .env.');
         }
 
-        $url = "{$this->baseUrl}/{$this->model}:generateContent?key={$this->apiKey}";
+        $candidateModels = array_unique([
+            $this->model,
+            'gemini-flash-lite-latest',
+            'gemini-3.1-flash-lite',
+            'gemini-3.5-flash-lite',
+        ]);
 
         $truncatedContent = mb_substr($userContent, 0, 15000);
+        $lastException = null;
 
-        try {
-            $response = Http::timeout(20)->post($url, [
-                'contents' => [
-                    [
-                        'role' => 'user',
-                        'parts' => [
-                            ['text' => $systemPrompt."\n\nKonten input:\n".$truncatedContent],
+        foreach ($candidateModels as $candidateModel) {
+            $url = "{$this->baseUrl}/{$candidateModel}:generateContent?key={$this->apiKey}";
+
+            try {
+                $response = Http::timeout(15)->post($url, [
+                    'contents' => [
+                        [
+                            'role' => 'user',
+                            'parts' => [
+                                ['text' => $systemPrompt."\n\nKonten input:\n".$truncatedContent],
+                            ],
                         ],
                     ],
-                ],
-                'generationConfig' => [
-                    'responseMimeType' => 'application/json',
-                    'temperature' => 0.2,
-                ],
-            ]);
+                    'generationConfig' => [
+                        'responseMimeType' => 'application/json',
+                        'temperature' => 0.2,
+                    ],
+                ]);
 
-            if (! $response->successful()) {
-                Log::warning('Gemini API Error: '.$response->body());
-                throw new RuntimeException('Gagal menghubungi Gemini API: '.$response->status());
+                if (! $response->successful()) {
+                    Log::warning("Gemini model {$candidateModel} returned status {$response->status()}: ".$response->body());
+                    if (in_array($response->status(), [503, 429, 500, 404])) {
+                        continue;
+                    }
+                    throw new RuntimeException('Gagal menghubungi Gemini API: '.$response->status());
+                }
+
+                $body = $response->json();
+                $rawText = $body['candidates'][0]['content']['parts'][0]['text'] ?? '';
+
+                if (empty($rawText)) {
+                    continue;
+                }
+
+                $parsed = json_decode($rawText, true);
+
+                if (! is_array($parsed)) {
+                    continue;
+                }
+
+                return $this->cleanSanitizeOutput($parsed);
+            } catch (\Throwable $e) {
+                $lastException = $e;
+                Log::warning("Gemini model {$candidateModel} attempt failed: ".$e->getMessage());
             }
-
-            $body = $response->json();
-            $rawText = $body['candidates'][0]['content']['parts'][0]['text'] ?? '';
-
-            if (empty($rawText)) {
-                return $fallback;
-            }
-
-            $parsed = json_decode($rawText, true);
-
-            if (! is_array($parsed)) {
-                return $fallback;
-            }
-
-            // Sanitize anti-slop (replace all em dashes and en dashes)
-            return $this->cleanSanitizeOutput($parsed);
-        } catch (\Throwable $e) {
-            Log::error('Gemini Service Exception: '.$e->getMessage());
-            throw new RuntimeException('Layanan Gemini AI sedang tidak dapat merespons: '.$e->getMessage());
         }
+
+        if ($lastException) {
+            Log::error('All Gemini model attempts failed: '.$lastException->getMessage());
+            throw new RuntimeException('Layanan Gemini AI sedang sibuk. Silakan coba beberapa saat lagi.');
+        }
+
+        return $fallback;
     }
 
     /**
