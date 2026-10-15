@@ -1,58 +1,147 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# DevVault: Personal Developer Hub
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> Simpan sekali, temukan dalam hitungan detik. Pusat manajemen personal untuk code snippets, AI prompts, dan resource bookmarks harian Anda.
 
-## About Laravel
+Dibuat oleh: **Raditya Rai Zeeshan** ([@zshnrdtya](https://github.com/zshnrdtya))
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Ringkasan Proyek
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**DevVault** adalah aplikasi *personal knowledge base* dan *second brain* mandiri yang dirancang khusus untuk software developer. Aplikasi ini menyatukan tiga pilar kebutuhan harian programmer ke dalam satu antarmuka yang cepat, terisolasi per pengguna, dan responsif di seluruh perangkat.
 
-## Learning Laravel
+Dibangun dengan arsitektur modern **Laravel + Inertia.js (React + TypeScript)**, DevVault memprioritaskan performa tinggi, keamanan data ketat melalui Policy otorisasi, serta desain antarmuka bersih berbasis tipografi **Space Mono**.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Fitur Utama
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### 1. Code Snippets Manager
+- Simpan potongan kode penting dengan pewarnaan sintaks (*syntax highlighting*).
+- Penghitung otomatis frekuensi penyalinan kode (*copy count* dan *last copied timestamp*).
+- Filter instan berdasarkan bahasa pemrograman (PHP, JavaScript, TypeScript, Python, SQL, CSS, HTML, Bash, Go, Rust), kategori, dan status favorit.
+- Salin kode instan ke papan klip (*clipboard*) dengan satu klik.
 
-## Agentic Development
+### 2. AI Prompt Library
+- Simpan dan kelola pustaka instruksi AI (*prompt template*) untuk kebutuhan coding, debugging, refactoring, dan dokumentasi.
+- **Dynamic Variable Viewer**: Mendeteksi otomatis placeholder variabel bertanda `{{variabel}}` di dalam isi prompt dan menampilkannya sebagai elemen interaktif.
+- Satu-klik salin prompt siap pakai ke ChatGPT, Claude, atau Gemini.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 3. Resource Bookmarks
+- Simpan tautan referensi web, dokumentasi API, dan repositori GitHub penting.
+- Deteksi otomatis domain dan hostname sebagai penanda visual kartu.
+- Tautan eksternal yang aman (`target="_blank"` dan `rel="noopener noreferrer"`).
+- Peringatan ramah jika URL yang sama sudah pernah disimpan sebelumnya.
+- Catatan pribadi untuk menyimpan poin penting dan konteks penggunaan tautan.
+
+### 4. Pencarian Global Universal (Command Palette Ctrl + K)
+- Akses modal pencarian cepat dari mana saja menggunakan tombol pintasan keyboard `Ctrl + K` (atau `Cmd + K` di macOS).
+- Menjalankan pencarian serentak (*concurrent search*) ke seluruh Snippets, Prompts, dan Bookmarks dengan *debounce* 300 ms.
+- Navigasi keyboard penuh (panah atas/bawah, `Enter` untuk membuka, `Esc` untuk menutup).
+
+### 5. Manajemen Kategori & Tag Vault
+- Pengelompokan taksonomi per modul dengan palet warna penanda visual.
+- Penghapusan kategori yang aman: menghapus kategori tidak menghapus item (item otomatis beralih menjadi tanpa kategori).
+- **Tag Vault**: Mengelola tag lintas modul dengan fitur pengubahan nama (*rename*) dan penggabungan otomatis (*auto-merge*).
+
+### 6. Personal Dashboard & Mode Gelap
+- Ringkasan statistik dinamis untuk total Snippets, Prompts, Bookmarks, dan Kategori.
+- Widget daftar item favorit gabungan lintas modul.
+- Pengaturan tema visual: Terang (*Light*), Gelap (*Dark*), dan Otomatis (*System Preference*).
+
+---
+
+## Tech Stack
+
+| Lapisan | Teknologi |
+|---|---|
+| **Backend** | Laravel 13, PHP 8.4 |
+| **Frontend** | React 18, TypeScript, Inertia.js |
+| **Styling** | Tailwind CSS (dukungan Dark Mode) |
+| **Tipografi** | Space Mono (Monospace) |
+| **Ikonografi** | Lucide React |
+| **Database** | SQLite (Dev/Testing), kompatibel MySQL / PostgreSQL |
+| **Testing** | PHPUnit (83 feature tests, 100% lulus) |
+
+---
+
+## Standar Kode & Kualitas (Rules-Raditya CODE)
+
+Proyek ini dikembangkan dengan mematuhi standar ketat Rules-Raditya CODE:
+- **Rule of 300**: 100% berkas kode (PHP dan TSX) berada di bawah 300 baris kode untuk keterbacaan optimal.
+- **Karakter Bersih**: Bebas karakter tanda strip panjang (*em dash* dan *en dash*).
+- **Mobile First & Aksesibilitas**: Ukuran target sentuh minimal 44 x 44 px pada seluruh tombol interaktif dan form input.
+- **Isolasi Data Penuh**: 100% endpoint dilindungi oleh Laravel Policy sehingga pengguna tidak dapat mengakses atau memodifikasi data milik pengguna lain.
+
+---
+
+## Panduan Instalasi Lokal
+
+### 1. Prasyarat Sistem
+- PHP >= 8.2 (dengan ekstensi SQLite, pdo, mbstring)
+- Composer >= 2.x
+- Node.js >= 18.x dan npm
+
+### 2. Langkah Instalasi
 
 ```bash
-composer require laravel/boost --dev
+# Clone repositori
+git clone https://github.com/zshnrdtya/DevVault-Hub.git
+cd DevVault-Hub
 
-php artisan boost:install
+# Install dependensi backend
+composer install
+
+# Install dependensi frontend
+npm install
+
+# Siapkan file environment
+cp .env.example .env
+php artisan key:generate
+
+# Buat database dan jalankan migrasi beserta data demo
+php artisan migrate --seed
+
+# Kompilasi aset frontend
+npm run build
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 3. Menjalankan Server
 
-## Contributing
+```bash
+# Jalankan server lokal Laravel
+php artisan serve
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Aplikasi dapat diakses melalui peramban di `http://127.0.0.1:8000`.
 
-## Code of Conduct
+### 4. Akun Demo Bawaan
+- **Email**: `test@example.com`
+- **Password**: `password`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## Menjalankan Pengujian Otomatis
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+# Menjalankan seluruh pengujian PHPUnit
+vendor/bin/phpunit
 
-## License
+# Menjalankan linter dan formatter kode Pint
+vendor/bin/pint --test
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## Pembuat & Pengembang
+
+Aplikasi ini dirancang dan dikembangkan oleh:
+- **Pengembang**: Raditya Rai Zeeshan
+- **GitHub**: [@zshnrdtya](https://github.com/zshnrdtya)
+- **Repositori**: [DevVault-Hub](https://github.com/zshnrdtya/DevVault-Hub)
+
+---
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah lisensi [MIT](LICENSE).
