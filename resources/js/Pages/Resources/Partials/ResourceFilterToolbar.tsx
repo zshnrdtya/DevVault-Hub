@@ -67,7 +67,7 @@ export default function ResourceFilterToolbar({
                     <select
                         value={filters.category_id || ''}
                         onChange={(e) => onFilterChange('category_id', e.target.value)}
-                        className="rounded-md border border-zinc-200 bg-white px-2.5 py-1.5 text-xs text-zinc-700 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200"
+                        className="rounded-md border border-zinc-200 bg-white pl-2.5 pr-8 py-1.5 text-xs text-zinc-700 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200"
                     >
                         <option value="">Semua Kategori</option>
                         {categories.map((cat) => (
@@ -101,7 +101,7 @@ export default function ResourceFilterToolbar({
                         <select
                             value={filters.sort || 'latest'}
                             onChange={(e) => onFilterChange('sort', e.target.value)}
-                            className="rounded-md border border-zinc-200 bg-white px-2.5 py-1.5 text-xs text-zinc-700 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200"
+                            className="rounded-md border border-zinc-200 bg-white pl-2.5 pr-8 py-1.5 text-xs text-zinc-700 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200"
                         >
                             <option value="latest">Terbaru</option>
                             <option value="oldest">Terlama</option>
