@@ -5,6 +5,7 @@ import Modal from '@/Components/Modal';
 import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
+import { AlertTriangle, Eye, EyeOff, Lock, Trash2 } from 'lucide-react';
 import { FormEventHandler, useRef, useState } from 'react';
 
 export default function DeleteUserForm({
@@ -13,6 +14,7 @@ export default function DeleteUserForm({
     className?: string;
 }) {
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const passwordInput = useRef<HTMLInputElement>(null);
 
     const {
@@ -52,69 +54,95 @@ export default function DeleteUserForm({
     return (
         <section className={`space-y-6 ${className}`}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                    Delete Account
-                </h2>
-
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    Once your account is deleted, all of its resources and data
-                    will be permanently deleted. Before deleting your account,
-                    please download any data or information that you wish to
-                    retain.
+                <div className="flex items-center gap-2 text-rose-600 dark:text-rose-400">
+                    <Trash2 className="h-5 w-5" />
+                    <h2 className="text-base font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+                        Hapus Akun Pengguna
+                    </h2>
+                </div>
+                <p className="mt-1 text-xs text-zinc-600 dark:text-zinc-400">
+                    Tindakan ini tidak dapat dibatalkan. Seluruh data vault, snippet kode, bookmark, dan prompt Anda akan dihapus secara permanen.
                 </p>
             </header>
 
-            <DangerButton onClick={confirmUserDeletion}>
-                Delete Account
-            </DangerButton>
+            <div>
+                <DangerButton onClick={confirmUserDeletion} className="gap-2">
+                    <Trash2 className="h-4 w-4" />
+                    <span>Hapus Akun Saya</span>
+                </DangerButton>
+            </div>
 
             <Modal show={confirmingUserDeletion} onClose={closeModal}>
-                <form onSubmit={deleteUser} className="p-6">
-                    <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                        Are you sure you want to delete your account?
-                    </h2>
+                <form onSubmit={deleteUser} className="p-6 sm:p-8">
+                    <div className="flex items-center gap-2.5 text-rose-600 dark:text-rose-400">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-rose-100 dark:bg-rose-950/60">
+                            <AlertTriangle className="h-5 w-5" />
+                        </div>
+                        <div>
+                            <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100">
+                                Konfirmasi Penghapusan Akun
+                            </h2>
+                            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                                Area Verifikasi Keamanan Akun
+                            </p>
+                        </div>
+                    </div>
 
-                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                        Once your account is deleted, all of its resources and
-                        data will be permanently deleted. Please enter your
-                        password to confirm you would like to permanently delete
-                        your account.
+                    <p className="mt-4 text-xs text-zinc-600 dark:text-zinc-400">
+                        Apakah Anda yakin ingin menghapus akun ini secara permanen? Masukkan kata sandi akun Anda untuk mengonfirmasi tindakan ini.
                     </p>
 
-                    <div className="mt-6">
+                    <div className="mt-4">
                         <InputLabel
-                            htmlFor="password"
-                            value="Password"
-                            className="sr-only"
+                            htmlFor="delete_password"
+                            value="Kata Sandi Anda"
                         />
 
-                        <TextInput
-                            id="password"
-                            type="password"
-                            name="password"
-                            ref={passwordInput}
-                            value={data.password}
-                            onChange={(e) =>
-                                setData('password', e.target.value)
-                            }
-                            className="mt-1 block w-3/4"
-                            isFocused
-                            placeholder="Password"
-                        />
+                        <div className="relative mt-1.5">
+                            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-400">
+                                <Lock className="h-4 w-4" />
+                            </div>
+                            <TextInput
+                                id="delete_password"
+                                type={showPassword ? 'text' : 'password'}
+                                name="password"
+                                ref={passwordInput}
+                                value={data.password}
+                                onChange={(e) =>
+                                    setData('password', e.target.value)
+                                }
+                                className="pl-9 pr-11"
+                                isFocused
+                                placeholder="Masukkan kata sandi untuk verifikasi"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute inset-y-0 right-0 flex min-h-[44px] min-w-[44px] items-center justify-center text-zinc-400 transition-colors hover:text-zinc-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 dark:hover:text-zinc-200"
+                                aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+                            >
+                                {showPassword ? (
+                                    <EyeOff className="h-4 w-4" />
+                                ) : (
+                                    <Eye className="h-4 w-4" />
+                                )}
+                            </button>
+                        </div>
 
                         <InputError
                             message={errors.password}
-                            className="mt-2"
+                            className="mt-1.5"
                         />
                     </div>
 
-                    <div className="mt-6 flex justify-end">
+                    <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
                         <SecondaryButton onClick={closeModal}>
-                            Cancel
+                            Batal
                         </SecondaryButton>
 
-                        <DangerButton className="ms-3" disabled={processing}>
-                            Delete Account
+                        <DangerButton disabled={processing} className="gap-2">
+                            <Trash2 className="h-4 w-4" />
+                            <span>{processing ? 'Menghapus...' : 'Ya, Hapus Akun Permanen'}</span>
                         </DangerButton>
                     </div>
                 </form>
