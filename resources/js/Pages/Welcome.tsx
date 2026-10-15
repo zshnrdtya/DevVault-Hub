@@ -74,10 +74,10 @@ public function scopeForUser(Builder $query, int $userId): void
             {/* Hero Section */}
             <main className="flex-1 py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
                 <div className="mx-auto max-w-4xl text-center space-y-6">
-                    {/* Badge */}
-                    <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 font-mono text-xs font-medium text-zinc-700 dark:border-zinc-800 dark:bg-[#141619] dark:text-zinc-300">
-                        <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
-                        <span>Personal Developer Hub & Second Brain</span>
+                    {/* Eyebrow Label */}
+                    <div className="inline-flex items-center gap-2 rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 font-mono text-xs text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-400">
+                        <TerminalSquare className="h-3.5 w-3.5 text-sky-600 dark:text-sky-400" />
+                        <span>workspace personal developer</span>
                     </div>
 
                     <h1 className="text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-5xl">
@@ -142,7 +142,7 @@ public function scopeForUser(Builder $query, int $userId): void
                                         <div className="h-2.5 w-2.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
                                     </div>
                                     <span className="font-mono text-xs font-semibold text-zinc-600 dark:text-zinc-400 ml-2">
-                                        Snippet.php
+                                        devvault: ~/workspace/snippets/UserScope.php
                                     </span>
                                 </div>
                                 <button
@@ -220,7 +220,7 @@ public function scopeForUser(Builder $query, int $userId): void
                 <div className="mx-auto max-w-6xl px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-400">
                     <div className="flex items-center gap-2">
                         <span className="font-semibold text-zinc-800 dark:text-zinc-200">DevVault</span>
-                        <span>· Personal developer hub & second brain</span>
+                        <span>· Ruang kerja mandiri untuk snippet, prompt, dan bookmark</span>
                     </div>
                     <div>
                         <span>Dibuat dengan Laravel 13, React, Inertia, dan Tailwind CSS</span>
