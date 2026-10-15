@@ -1,5 +1,6 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Breadcrumbs, { BreadcrumbItem } from '@/Components/Breadcrumbs';
+import GlobalSearchModal from '@/Components/GlobalSearchModal';
 import { Link, usePage } from '@inertiajs/react';
 import {
     Bookmark,
@@ -31,6 +32,7 @@ export default function AuthenticatedLayout({
 }: PropsWithChildren<AuthenticatedLayoutProps>) {
     const user = usePage().props.auth.user;
     const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+    const [searchModalOpen, setSearchModalOpen] = useState(false);
     const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
         if (typeof window !== 'undefined') {
             return localStorage.getItem('devvault_sidebar_collapsed') === 'true';
@@ -46,6 +48,17 @@ export default function AuthenticatedLayout({
         };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+        const handleKeyDown = (e: globalThis.KeyboardEvent) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                setSearchModalOpen((prev) => !prev);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
     const toggleSidebar = () => {
@@ -217,18 +230,34 @@ export default function AuthenticatedLayout({
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-2.5">
-                        <div className="hidden sm:flex items-center gap-2 rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1.5 text-xs text-zinc-500 transition-colors hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-400">
+                    <div className="flex items-center gap-2">
+                        {/* Mobile Search Button */}
+                        <button
+                            type="button"
+                            onClick={() => setSearchModalOpen(true)}
+                            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 sm:hidden"
+                            aria-label="Buka pencarian global"
+                        >
+                            <Search className="h-4 w-4" />
+                        </button>
+
+                        {/* Desktop Search Trigger */}
+                        <button
+                            type="button"
+                            onClick={() => setSearchModalOpen(true)}
+                            className="hidden sm:inline-flex min-h-[44px] items-center gap-2 rounded-md border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs text-zinc-500 transition-colors hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-400"
+                            aria-label="Buka pencarian global"
+                        >
                             <Search className="h-3.5 w-3.5 text-zinc-400" />
                             <span className="text-zinc-500">Cari item...</span>
                             <kbd className="ml-2 rounded border border-zinc-200 bg-white px-1.5 py-0.5 font-mono text-[10px] text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-                                ⌘K
+                                Ctrl K
                             </kbd>
-                        </div>
+                        </button>
 
                         <Link
                             href={route('snippets.create')}
-                            className="inline-flex min-h-[36px] items-center gap-1.5 rounded-md bg-sky-700 px-3 py-1.5 text-xs font-semibold text-white shadow-xs transition-colors hover:bg-sky-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:bg-sky-600 dark:hover:bg-sky-500"
+                            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-md bg-sky-700 px-3.5 py-2 text-xs font-semibold text-white shadow-xs transition-colors hover:bg-sky-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:bg-sky-600 dark:hover:bg-sky-500"
                         >
                             <Plus className="h-3.5 w-3.5 stroke-[2.5]" />
                             <span className="hidden xs:inline">Snippet Baru</span>
@@ -249,6 +278,12 @@ export default function AuthenticatedLayout({
             </div>
 
             <MobileBottomNav items={navItems.slice(0, 4)} />
+
+            {/* Global Search Command Palette Modal */}
+            <GlobalSearchModal
+                open={searchModalOpen}
+                onClose={() => setSearchModalOpen(false)}
+            />
         </div>
     );
 }

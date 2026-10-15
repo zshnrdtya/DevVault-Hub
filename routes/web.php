@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GlobalSearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PromptController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SnippetController;
+use App\Http\Controllers\TagController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +37,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/resources/{resource}/favorite', [ResourceController::class, 'toggleFavorite'])->name('resources.favorite');
 
     Route::resource('categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
+
+    Route::patch('/tags/{tag}', [TagController::class, 'update'])->name('tags.update');
+    Route::delete('/tags/{tag}', [TagController::class, 'destroy'])->name('tags.destroy');
+
+    Route::get('/search', GlobalSearchController::class)->name('search.global');
 
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
 
