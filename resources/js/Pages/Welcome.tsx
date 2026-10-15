@@ -8,6 +8,7 @@ import {
     Code2,
     Copy,
     KeyRound,
+    Plus,
     Sparkles,
     Star,
     TerminalSquare,
@@ -92,13 +93,22 @@ public function scopeForUser(Builder $query, int $userId): void
                     {/* CTAs */}
                     <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                         {auth.user ? (
-                            <Link
-                                href={route('dashboard')}
-                                className="inline-flex min-h-[48px] items-center gap-2 rounded-md bg-sky-700 px-6 py-3 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-sky-600 dark:bg-sky-600 dark:hover:bg-sky-500"
-                            >
-                                <span>Masuk ke Dashboard</span>
-                                <ArrowRight className="h-4 w-4" />
-                            </Link>
+                            <>
+                                <Link
+                                    href={route('snippets.create')}
+                                    className="inline-flex min-h-[48px] items-center gap-2 rounded-md bg-sky-700 px-5 py-3 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-sky-600 dark:bg-sky-600 dark:hover:bg-sky-500"
+                                >
+                                    <Plus className="h-4 w-4" />
+                                    <span>Buat Snippet Baru</span>
+                                </Link>
+                                <Link
+                                    href={route('prompts.create')}
+                                    className="inline-flex min-h-[48px] items-center gap-2 rounded-md border border-zinc-300 bg-white px-5 py-3 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-[#141619] dark:text-zinc-200 dark:hover:bg-zinc-800"
+                                >
+                                    <Plus className="h-4 w-4" />
+                                    <span>Buat Prompt Baru</span>
+                                </Link>
+                            </>
                         ) : (
                             <>
                                 <Link
@@ -118,8 +128,19 @@ public function scopeForUser(Builder $query, int $userId): void
                         )}
                     </div>
 
-                    {/* Quick Demo Credentials Info */}
-                    {!auth.user && (
+                    {/* Quick Demo Credentials Info or Active Session Status */}
+                    {auth.user ? (
+                        <div className="mx-auto max-w-md rounded-md border border-zinc-200 bg-zinc-50 p-3 text-xs text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-400">
+                            <div className="flex items-center justify-center gap-1.5 font-semibold text-zinc-800 dark:text-zinc-200">
+                                <span className="inline-block h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                                <span>Sesi Aktif:</span>
+                                <span className="text-zinc-900 dark:text-zinc-100 font-bold">{auth.user.name}</span>
+                            </div>
+                            <p className="mt-1 font-mono text-[11px] text-zinc-500 dark:text-zinc-400">
+                                {auth.user.email} · Kelola vault via tombol dashboard di navbar atau aksi cepat di atas.
+                            </p>
+                        </div>
+                    ) : (
                         <div className="mx-auto max-w-md rounded-md border border-zinc-200 bg-zinc-50 p-3 text-xs text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-400">
                             <div className="flex items-center justify-center gap-1.5 font-semibold text-zinc-800 dark:text-zinc-200">
                                 <KeyRound className="h-3.5 w-3.5" />
