@@ -2,6 +2,8 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import { User } from '@/types';
 import { Link } from '@inertiajs/react';
 import {
+    ExternalLink,
+    Globe,
     LayoutDashboard,
     LogOut,
     Terminal,
@@ -87,8 +89,32 @@ export default function DesktopSidebar({
                     })}
                 </nav>
 
-                {/* Sidebar Bottom: User Profile */}
-                <div className="border-t border-zinc-200 pt-3 dark:border-zinc-800">
+                {/* Sidebar Bottom: Live View Page & User Profile */}
+                <div className="border-t border-zinc-200 pt-3 dark:border-zinc-800 space-y-2">
+                    {/* Live View Page */}
+                    {collapsed ? (
+                        <div className="flex justify-center">
+                            <Link
+                                href="/"
+                                title="Live View Page"
+                                className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-200 bg-white text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-sky-600 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-sky-400"
+                            >
+                                <Globe className="h-4 w-4" />
+                            </Link>
+                        </div>
+                    ) : (
+                        <Link
+                            href="/"
+                            title="Buka Halaman Utama (Live View)"
+                            className="group flex min-h-[38px] items-center justify-between rounded-md border border-zinc-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-zinc-700 transition-colors hover:border-zinc-300 hover:bg-zinc-50 hover:text-sky-700 dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-sky-400"
+                        >
+                            <div className="flex items-center gap-2 min-w-0">
+                                <Globe className="h-3.5 w-3.5 shrink-0 text-zinc-500 group-hover:text-sky-600 dark:text-zinc-400 dark:group-hover:text-sky-400" />
+                                <span className="truncate">Live View Page</span>
+                            </div>
+                            <ExternalLink className="h-3 w-3 shrink-0 text-zinc-400 group-hover:text-zinc-600 dark:text-zinc-500 dark:group-hover:text-zinc-300" />
+                        </Link>
+                    )}
 
                     {collapsed ? (
                         <div className="flex flex-col items-center gap-2 pt-1">
